@@ -5,11 +5,9 @@
     Description: A powerful and beautiful quiz plugin for WordPress.
     Version: 0.1
     Author: Amrulla Khan
-    Author URI: http://www.smartgnan.de
+    Author URI: http://www.smartgnan.com
     Text Domain: sg-crack-it
 */
-
-
 
 define('SGCRACKIT_VERSION', '0.1'); //0.1
 
@@ -31,6 +29,49 @@ register_activation_hook(__FILE__, 'sgCrackIt_pluginActivation');
 register_deactivation_hook(__FILE__, 'sgCrackIt_pluginDeactivation');
 
 add_action('plugins_loaded', 'sgCrackIt_pluginLoaded');
+
+echo spl_autoload_register('sgCrackIt_autoload');
+
+if(is_admin())
+{
+    new SgCrackIt_Controller_Admin();
+}
+
+function sgCrackIt_autoload($class)
+{
+    $c = explode('_', $class);
+
+    if ($c === false || count($c) != 3 || $c[0] !== 'SgCrackIt') {
+        return;
+    }
+
+    switch ($c[1]) {
+        case 'View':
+            $dir = 'view';
+            break;
+        case 'Model':
+            $dir = 'model';
+            break;
+        case 'Helper':
+            $dir = 'helper';
+            break;
+        case 'Controller':
+            $dir = 'controller';
+            break;
+        case 'Plugin':
+            $dir = 'plugin';
+            break;
+        default:
+            return;
+    }
+
+    $classPath = SGCRACKIT_PATH . '/lib/' . $dir . '/' . $class . '.php';
+
+    if (file_exists($classPath)) {
+        /** @noinspection PhpIncludeInspection */
+        include_once $classPath;
+    }
+}
 
 function sgCrackIt_pluginActivation()
 {
