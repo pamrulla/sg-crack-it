@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: WP-Pro-Quiz
-Plugin URI: http://wordpress.org/extend/plugins/wp-pro-quiz
+Plugin Name: SG-Pro-Quiz
+Plugin URI: www.smartgnan.com
 Description: A powerful and beautiful quiz plugin for WordPress.
 Version: 0.37
-Author: Julius Fischer
-Author URI: http://www.it-gecko.de
-Text Domain: wp-pro-quiz
+Author: Julius Fischer/Khan
+Author URI: http://www.smartgnan.com
+Text Domain: sg-pro-quiz
 Domain Path: /languages
 */
 

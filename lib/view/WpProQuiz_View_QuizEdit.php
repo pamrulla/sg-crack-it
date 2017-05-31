@@ -48,6 +48,26 @@ class WpProQuiz_View_QuizEdit extends WpProQuiz_View_View
                            class="button-primary">
                 </div>
                 <div style="clear: both;"></div>
+                <div style="float: left;">
+                        <input type="submit" name="submit" class="button-primary" id="wpProQuiz_save"
+                               value="<?php _e('Save', 'wp-pro-quiz'); ?>">
+                    </div>
+                    <div style="float: right;">
+                        <input type="text" placeholder="<?php _e('template name', 'wp-pro-quiz'); ?>"
+                               class="regular-text" name="templateName" style="border: 1px solid rgb(255, 134, 134);">
+                        <select name="templateSaveList">
+                            <option value="0">=== <?php _e('Create new template', 'wp-pro-quiz'); ?> ===</option>
+                            <?php
+                            foreach ($this->templates as $template) {
+                                echo '<option value="', $template->getTemplateId(), '">', esc_html($template->getName()), '</option>';
+                            }
+                            ?>
+                        </select>
+
+                        <input type="submit" name="template" class="button-primary" id="wpProQuiz_saveTemplate"
+                               value="<?php _e('Save as template', 'wp-pro-quiz'); ?>">
+                    </div>
+                    <div style="clear: both;"></div>
                 <div id="poststuff">
                     <div class="postbox">
                         <h3 class="hndle"><?php _e('Quiz title', 'wp-pro-quiz'); ?><?php _e('(required)',
@@ -98,9 +118,23 @@ class WpProQuiz_View_QuizEdit extends WpProQuiz_View_View
                             </div>
                         </div>
                     </div>
-
+                    
                     <?php do_action('wpProQuiz_action_plugin_quizEdit', $this); ?>
 
+                    <div class="postbox">
+                        <h3 class="hndle"><?php _e('Quiz description', 'wp-pro-quiz'); ?><?php _e('(required)',
+                                'wp-pro-quiz'); ?></h3>
+
+                        <div class="inside">
+                            <p class="description">
+                                <?php _e('This text will be displayed before start of the quiz.', 'wp-pro-quiz'); ?>
+                            </p>
+                            <?php
+                            wp_editor($this->quiz->getText(), "text");
+                            ?>
+                        </div>
+                    </div>
+                    
                     <div class="postbox">
                         <h3 class="hndle"><?php _e('Options', 'wp-pro-quiz'); ?></h3>
 
@@ -697,19 +731,6 @@ class WpProQuiz_View_QuizEdit extends WpProQuiz_View_View
                     <?php $this->adminEmailOption(); ?>
                     <?php $this->userEmailOption(); ?>
                     <div class="postbox">
-                        <h3 class="hndle"><?php _e('Quiz description', 'wp-pro-quiz'); ?><?php _e('(required)',
-                                'wp-pro-quiz'); ?></h3>
-
-                        <div class="inside">
-                            <p class="description">
-                                <?php _e('This text will be displayed before start of the quiz.', 'wp-pro-quiz'); ?>
-                            </p>
-                            <?php
-                            wp_editor($this->quiz->getText(), "text");
-                            ?>
-                        </div>
-                    </div>
-                    <div class="postbox">
                         <h3 class="hndle"><?php _e('Results text', 'wp-pro-quiz'); ?><?php _e('(optional)',
                                 'wp-pro-quiz'); ?></h3>
 
@@ -820,26 +841,7 @@ class WpProQuiz_View_QuizEdit extends WpProQuiz_View_View
 
                         </div>
                     </div>
-                    <div style="float: left;">
-                        <input type="submit" name="submit" class="button-primary" id="wpProQuiz_save"
-                               value="<?php _e('Save', 'wp-pro-quiz'); ?>">
-                    </div>
-                    <div style="float: right;">
-                        <input type="text" placeholder="<?php _e('template name', 'wp-pro-quiz'); ?>"
-                               class="regular-text" name="templateName" style="border: 1px solid rgb(255, 134, 134);">
-                        <select name="templateSaveList">
-                            <option value="0">=== <?php _e('Create new template', 'wp-pro-quiz'); ?> ===</option>
-                            <?php
-                            foreach ($this->templates as $template) {
-                                echo '<option value="', $template->getTemplateId(), '">', esc_html($template->getName()), '</option>';
-                            }
-                            ?>
-                        </select>
-
-                        <input type="submit" name="template" class="button-primary" id="wpProQuiz_saveTemplate"
-                               value="<?php _e('Save as template', 'wp-pro-quiz'); ?>">
-                    </div>
-                    <div style="clear: both;"></div>
+                    
                 </div>
             </form>
         </div>
