@@ -618,6 +618,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
     private function showStartQuizBox()
     {
         ?>
+        <button type="button" class="btn btn-primary">Primary</button>
         <div class="wpProQuiz_text">
             <p>
                 <?php echo do_shortcode(apply_filters('comment_text', $this->quiz->getText())); ?>
