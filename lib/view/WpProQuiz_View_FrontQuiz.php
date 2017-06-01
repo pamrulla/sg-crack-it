@@ -203,9 +203,32 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
 
         ?>
         <div class="wpProQuiz_content" id="wpProQuiz_<?php echo $this->quiz->getId(); ?>">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title"><?php echo $this->quiz->getName(); ?></h4>
+                    <p class="card-text"><?php 
+                        $this->showTimeLimitBox();
+                        $this->showCheckPageBox($question_count);
+                        $this->showInfoPageBox();
+                        $this->showStartQuizBox();
+                        $this->showLockBox();
+                        $this->showLoadQuizBox();
+                        $this->showStartOnlyRegisteredUserBox();
+                        $this->showPrerequisiteBox();
+                        $this->showResultBox($result, $question_count);
+
+                        if ($this->quiz->getToplistDataShowIn() == WpProQuiz_Model_Quiz::QUIZ_TOPLIST_SHOW_IN_BUTTON) {
+                            $this->showToplistInButtonBox();
+                        }
+
+                        $this->showReviewBox($question_count);
+                        $this->showQuizAnker(); 
+                    ?></p>
+                </div>
+            </div>
             <?php
 
-            if (!$this->quiz->isTitleHidden()) {
+            /*if (!$this->quiz->isTitleHidden()) {
                 echo '<h2>', $this->quiz->getName(), '</h2>';
             }
 
@@ -224,7 +247,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
             }
 
             $this->showReviewBox($question_count);
-            $this->showQuizAnker();
+            $this->showQuizAnker();*/
             ?>
         </div>
         <?php
@@ -618,7 +641,6 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
     private function showStartQuizBox()
     {
         ?>
-        <button type="button" class="btn btn-primary">Primary</button>
         <div class="wpProQuiz_text">
             <p>
                 <?php echo do_shortcode(apply_filters('comment_text', $this->quiz->getText())); ?>
@@ -631,7 +653,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
             ?>
 
             <div>
-                <input class="wpProQuiz_button" type="button" value="<?php echo $this->_buttonNames['start_quiz']; ?>"
+                <input class="btn btn-primary" value="<?php echo $this->_buttonNames['start_quiz']; ?>"
                        name="startQuiz">
             </div>
         </div>
@@ -690,6 +712,15 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
     }
 
     private function showResultBox($result, $questionCount)
+    { 
+        ?>
+        <div style="display: none;" class="wpProQuiz_results alert alert-success" role="alert">
+            <strong>Well done!</strong> You successfully completed the quiz, we will send you the report to your registered mail within 24 hours.
+        </div>
+        <?php
+    }
+    
+    private function showResultBox1($result, $questionCount)
     {
         ?>
         <div style="display: none;" class="wpProQuiz_results">
@@ -847,8 +878,11 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                     <li class="wpProQuiz_listItem" style="display: none;">
                         <div
                             class="wpProQuiz_question_page" <?php $this->isDisplayNone($this->quiz->getQuizModus() != WpProQuiz_Model_Quiz::QUIZ_MODUS_SINGLE && !$this->quiz->isHideQuestionPositionOverview()); ?> >
-                            <?php printf(__('Question %s of %s', 'wp-pro-quiz'), '<span>' . $index . '</span>',
-                                '<span>' . $questionCount . '</span>'); ?>
+                            <?php /*printf(__('Question %s of %s', 'wp-pro-quiz'), '<span>' . $index . '</span>',
+                                '<span>' . $questionCount . '</span>');*/ ?>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo ($index * 100.0/ $questionCount); ?>%; height: 5px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <h5 style="<?php echo $this->quiz->isHideQuestionNumbering() ? 'display: none;' : 'display: inline-block;' ?>"
                             class="wpProQuiz_header">
@@ -868,7 +902,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                             </div>
                         <?php } ?>
                         <div class="wpProQuiz_question" style="margin: 10px 0 0 0;">
-                            <div class="wpProQuiz_question_text">
+                            <div class="wpProQuiz_question_text alert alert-info">
                                 <?php echo do_shortcode(apply_filters('comment_text', $question->getQuestion())); ?>
                             </div>
                             <?php if ($question->getAnswerType() === 'matrix_sort_answer') { ?>
@@ -1105,7 +1139,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                         <input type="button" name="check" value="<?php _e('Check', 'wp-pro-quiz'); ?>"
                                class="wpProQuiz_button wpProQuiz_QuestionButton"
                                style="float: right !important; margin-right: 10px !important; display: none;">
-                        <input type="button" name="next" value="<?php _e('Next', 'wp-pro-quiz'); ?>"
+                        <input class="btn btn-primary" name="next" value="<?php _e('Next', 'wp-pro-quiz'); ?>"
                                class="wpProQuiz_button wpProQuiz_QuestionButton" style="float: right; display: none;">
 
                         <div style="clear: both;"></div>
