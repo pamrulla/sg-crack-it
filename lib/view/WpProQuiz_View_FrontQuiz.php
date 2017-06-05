@@ -20,7 +20,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
         }
 
         $names = array(
-            'start_quiz' => __('Start quiz', 'wp-pro-quiz'),
+            'start_quiz' => __('Start Quiz', 'wp-pro-quiz'),
             'restart_quiz' => __('Restart quiz', 'wp-pro-quiz'),
             'quiz_summary' => __('Quiz-summary', 'wp-pro-quiz'),
             'finish_quiz' => __('Finish quiz', 'wp-pro-quiz'),
@@ -877,12 +877,12 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                     ?>
                     <li class="wpProQuiz_listItem" style="display: none;">
                         <div
-                            class="wpProQuiz_question_page" <?php $this->isDisplayNone($this->quiz->getQuizModus() != WpProQuiz_Model_Quiz::QUIZ_MODUS_SINGLE && !$this->quiz->isHideQuestionPositionOverview()); ?> >
-                            <?php /*printf(__('Question %s of %s', 'wp-pro-quiz'), '<span>' . $index . '</span>',
-                                '<span>' . $questionCount . '</span>');*/ ?>
-                            <div class="progress">
+                            class="wpProQuiz_question_page" style="display: block;" >
+                            <?php printf(__('Question %s of %s', 'wp-pro-quiz'), '<span>' . $index . '</span>',
+                                '<span>' . $questionCount . '</span>'); ?>
+                            <!--<div class="progress">
                                 <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo ($index * 100.0/ $questionCount); ?>%; height: 5px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                            </div>-->
                         </div>
                         <h5 style="<?php echo $this->quiz->isHideQuestionNumbering() ? 'display: none;' : 'display: inline-block;' ?>"
                             class="wpProQuiz_header">
@@ -985,7 +985,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                                                     <label>
                                                         <textarea rows="10" class="wpProQuiz_questionInput" type="text"
                                                                name="question_<?php echo $this->quiz->getId(); ?>_<?php echo $question->getId(); ?>"
-                                                               style="width: 300px;"></textarea>
+                                                               ></textarea>
                                                     </label>
                                                 <?php } else {
                                                     if ($question->getAnswerType() === 'matrix_sort_answer') { ?>
