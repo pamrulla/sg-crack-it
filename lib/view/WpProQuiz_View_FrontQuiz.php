@@ -961,6 +961,8 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
 
                                     <li class="wpProQuiz_questionListItem" data-pos="<?php echo $answer_index; ?>">
 
+                                    <div class="card card-outline-info">
+                                          <div class="card-block">
                                         <?php if ($question->getAnswerType() === 'single' || $question->getAnswerType() === 'multiple') { ?>
                                             <?php $json[$question->getId()]['correct'][] = (int)$v->isCorrect(); ?>
                                             <span <?php echo $this->quiz->isNumberedAnswer() ? '' : 'style="display:none;"' ?>></span>
@@ -991,7 +993,7 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                                                         $json[$question->getId()]['correct'][] = (int)$answer_index;
                                                         $msacwValue = $question->getMatrixSortAnswerCriteriaWidth() > 0 ? $question->getMatrixSortAnswerCriteriaWidth() : 20;
                                                         ?>
-                                                        <table>
+                                                        <table style="margin: 0 0 0;">
                                                             <tbody>
                                                             <tr class="wpProQuiz_mextrixTr">
                                                                 <td width="<?php echo $msacwValue; ?>%">
@@ -1039,7 +1041,10 @@ class WpProQuiz_View_FrontQuiz extends WpProQuiz_View_View
                                                     }
                                                 }
                                             }
-                                        } ?>
+                                        } ?>    
+                                          </div>
+                                        </div>
+                                        
                                     </li>
                                     <?php
                                     $answer_index++;
